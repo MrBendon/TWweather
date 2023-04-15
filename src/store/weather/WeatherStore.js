@@ -34,7 +34,7 @@ export default {
     async setUserLocationData(context) {
       const UserLoactionStandardizeName = await context.rootState.UserCityStandardize;
 
-      console.log(context.getters.getForecast72hrData);
+      // console.log(context.getters.getForecast72hrData);
       if (context.getters.getForecast72hrData.length === 0) {
         console.log("fetch...");
         // await context.dispatch("fetchData");
@@ -42,8 +42,8 @@ export default {
 
       ///////////////////////////////
 
-      console.log(UserLoactionStandardizeName); // Taichung
-      console.log(context.getters.getForecast72hrData);
+      // console.log(UserLoactionStandardizeName); // Taichung
+      // console.log(context.getters.getForecast72hrData);
       const UserLoactionData = await context.state.Forecast72hrData.find(
         (el) => el.locationName === UserLoactionStandardizeName
       );
@@ -108,11 +108,11 @@ export default {
             includesNum: [4, 5, 6, 7, 25],
           },
           {
-            categoryName: "clearWithRain",
+            categoryName: "clearwithrain",
             includesNum: [8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39],
           },
           {
-            categoryName: "thunderRain",
+            categoryName: "thunderrain",
             includesNum: [15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41],
           },
           {
@@ -149,7 +149,7 @@ export default {
       //   console.log(Day2FullData, Day2HighestNum, Day2LowestNum);
       context.commit("setUserLoactionFutureData", { Day2FullData, Day3FullData, Day4FullData });
       context.commit("toggleIsLoading", false, { root: true });
-      console.log(context.rootGetters.getIsLoading);
+      // console.log(context.rootGetters.getIsLoading);
     },
   },
   mutations: {
@@ -167,11 +167,11 @@ export default {
           includesNum: [4, 5, 6, 7, 25],
         },
         {
-          categoryName: "clearWithRain",
+          categoryName: "clearwithrain",
           includesNum: [8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39],
         },
         {
-          categoryName: "thunderRain",
+          categoryName: "thunderrain",
           includesNum: [15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41],
         },
         {
