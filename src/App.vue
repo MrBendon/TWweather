@@ -6,15 +6,18 @@
   <div class="content">
     <div class="content__left">
       <weather-details></weather-details>
+      <!-- <choose-location v-if="showMap && IsWindowWidtSmallerThan767px"></choose-location> -->
     </div>
     <div class="content__right">
-      <div class="content__right__up">
-        <app-nav></app-nav>
-      </div>
       <div class="content__right__bottom">
         <transition name="map">
           <taiwan-map v-if="showMap"></taiwan-map>
         </transition>
+
+        <transition name="select">
+          <choose-location v-if="showMap"></choose-location>
+        </transition>
+
         <!-- <test-page></test-page> -->
       </div>
     </div>
@@ -22,27 +25,58 @@
 </template>
 
 <script>
-import AppNav from "./components/pages/AppNav.vue";
+// import AppNav from "./components/pages/AppNav.vue";
 import WeatherDetails from "./components/pages/WeatherDetails.vue";
 import TaiwanMap from "./components/pages/TaiwanMap.vue";
 
 export default {
+  data() {
+    return {
+      windowInnerWidth: window.innerWidth,
+    };
+  },
   components: {
-    AppNav,
+    // AppNav,
     WeatherDetails,
     TaiwanMap,
   },
   computed: {
+    IsWindowWidthBiggerThan1440px() {
+      const windowWidth = window.innerWidth;
+      console.log(windowWidth);
+      if (windowWidth < 1440) {
+        console.log("smaller than 1440px");
+        return false;
+      } else {
+        console.log("bigger than 1440px");
+        return true;
+      }
+    },
     isDarkMode() {
       return this.$store.getters.getColorMode ? "darkmode" : "lightmode";
     },
     showMap() {
-      // console.log(this.$store.getters.get);
       return this.$store.getters.getShowMap;
     },
     IsLoading() {
       return this.$store.getters.getIsLoading;
     },
+  },
+  methods: {
+    // resize() {
+    //   computed(() => {
+    //     return this.windowWidth;
+    //   });
+    // },
+  },
+  mounted() {
+    // window.addEventListener("resize", function () {
+    // this.windowInnerWidth = window.innerWidth;
+    // console.log("目前瀏覽器寬度：", this.windowInnerWidth);
+    // });
+  },
+  unmounted() {
+    this.$store.dispatch("changeShowMap", false);
   },
 };
 </script>
@@ -63,7 +97,6 @@ export default {
   height: 100%;
   z-index: -1;
   opacity: 0.75;
-  // background-image: url("./assets/background/andy-wang-O_0fiyBOY-8-unsplash.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -74,7 +107,8 @@ export default {
 }
 
 .lightmode {
-  background-image: url("./assets/background/Sun-Moon-Lake.jpeg");
+  background-image: url("./assets/background/Taiwan_Coast_Scenery_Moss_1920x1080.jpeg");
+  // filter: brightness(0.8);
 }
 
 .content {
@@ -96,6 +130,28 @@ export default {
   &__left {
     width: 30%;
     height: 100vh;
+
+    @include SmallViewPort {
+      width: 100%;
+    }
+
+    @include iPhoneXR {
+      // position: relative;
+      width: 100%;
+    }
+
+    @include iPad {
+      width: 50%;
+    }
+    @include ViewPort-1024 {
+      width: 40%;
+    }
+    @include ViewPort-1280 {
+      width: 35%;
+    }
+    @include ViewPort-1440 {
+      width: 30%;
+    }
   }
   &__right {
     width: 70%;
@@ -103,6 +159,33 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    @include SmallViewPort {
+      display: none;
+    }
+
+    @include iPhoneXR {
+      display: none;
+    }
+    @include iPad {
+      display: flex;
+      width: 50%;
+    }
+    @include ViewPort-1024 {
+      width: 60%;
+    }
+    @include ViewPort-1280 {
+      width: 65%;
+    }
+    @include ViewPort-1440 {
+      width: 70%;
+    }
+
+    &__bottom {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -132,6 +215,21 @@ export default {
 }
 .map-enter-active,
 .map-leave-active {
-  transition: all 0.7s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.select-enter-from,
+.select-leave-to {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.select-enter-to,
+.select-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+.select-enter-active,
+.select-leave-active {
+  transition: all 0.35s ease-in-out;
 }
 </style>

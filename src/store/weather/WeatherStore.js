@@ -33,9 +33,17 @@ export default {
     },
     async setUserLocationData(context) {
       const UserLoactionStandardizeName = await context.rootState.UserCityStandardize;
-      await context.dispatch("fetchData");
-      //   console.log(UserLoactionStandardizeName); // Taichung
-      //   console.log(context.getters.getForecast72hrData);
+
+      console.log(context.getters.getForecast72hrData);
+      if (context.getters.getForecast72hrData.length === 0) {
+        console.log("fetch...");
+        // await context.dispatch("fetchData");
+      }
+
+      ///////////////////////////////
+
+      console.log(UserLoactionStandardizeName); // Taichung
+      console.log(context.getters.getForecast72hrData);
       const UserLoactionData = await context.state.Forecast72hrData.find(
         (el) => el.locationName === UserLoactionStandardizeName
       );

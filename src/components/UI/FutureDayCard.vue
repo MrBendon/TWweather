@@ -2,12 +2,12 @@
   <div class="Box">
     <div class="date" :class="isDarkMode">{{ oneday.shortDay }}</div>
     <div class="weatherInfo">
-      <img
+      <!-- <img
         v-if="LoadingFinish"
         src="../../assets/icon/2682846_cloud_cloudy_forecast_weather_night_moon.svg"
         alt=""
-      />
-      <!-- <img v-if="LoadingFinish" :src="getSvgURL" alt="SVG" /> -->
+      /> -->
+      <img v-if="LoadingFinish" :src="getSvgURL" alt="SVG" />
       <div class="text">{{ oneday.theDayWx }}</div>
     </div>
     <div class="temp">
@@ -71,11 +71,12 @@ export default {
 
 .date {
   //   display: inline-flex;
-  width: 6rem;
+  width: 5.5rem;
   height: 2.25rem;
   font-size: 1.5rem;
   border-radius: 20px;
   text-align: center;
+  background-image: none;
 }
 
 .weatherInfo {
@@ -88,7 +89,7 @@ export default {
 }
 
 .text {
-  width: 12rem;
+  width: 10rem;
   margin-left: 1.5rem;
   font-size: 1.5rem;
 }
@@ -104,6 +105,6 @@ export default {
 }
 .lowest {
   font-size: 1.5rem;
-  color: rgb(140, 210, 254);
+  color: rgb(106, 194, 249);
 }
 </style>

@@ -9,6 +9,8 @@ import BaseCard from "./components/UI/BaseCard.vue";
 import FutureDayCard from "./components/UI/FutureDayCard.vue";
 import TestPage from "./components/UI/TestPage.vue";
 import LoadingPage from "./components/UI/LoadingPage.vue";
+import ChooseLocation from "./components/pages/ChooseLocation.vue";
+import SmallChooseLocation from "./components/pages/SmallChooseLocation.vue";
 const app = createApp(App);
 
 app.use(store);
@@ -20,5 +22,7 @@ app.component("base-card", BaseCard);
 app.component("future-day-card", FutureDayCard);
 app.component("test-page", TestPage);
 app.component("loading-page", LoadingPage);
+app.component("choose-location", ChooseLocation);
+app.component("small-choose-location", SmallChooseLocation);
 
 app.mount("#app");

@@ -1,9 +1,44 @@
 @mixin darkmode {
   color: $darkmode-font-color;
   background-color: $darkmode-background-color;
+  @content;
 }
 
 @mixin lightmode {
   color: $lightmode-font-color;
   background-color: $lightmode-background-color;
+  @content;
+}
+
+@mixin SmallViewPort {
+  @media only screen and (min-width: 350px) {
+    @content;
+  }
+}
+
+@mixin iPhoneXR {
+  @media only screen and (min-width: 375px) {
+    @content;
+  }
+}
+
+@mixin iPad {
+  @media only screen and (min-width: 767px) {
+    @content;
+  }
+}
+@mixin ViewPort-1024 {
+  @media only screen and (min-width: 1024px) {
+    @content;
+  }
+}
+@mixin ViewPort-1280 {
+  @media only screen and (min-width: 1280px) {
+    @content;
+  }
+}
+@mixin ViewPort-1440 {
+  @media only screen and (min-width: 1440px) {
+    @content;
+  }
 }

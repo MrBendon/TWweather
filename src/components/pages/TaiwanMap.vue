@@ -1,5 +1,5 @@
 <template>
-  <div class="MapContainer">
+  <div class="MapContainer" @click="cancelShowMap">
     <!-- taiwan map -->
     <div class="map">
       <svg
@@ -204,6 +204,12 @@
 <script>
 export default {
   methods: {
+    cancelShowMap(e) {
+      if (!e.target.getAttribute("data-name")) {
+        this.$store.dispatch("changeShowMap", false);
+        return;
+      }
+    },
     showClickArea(e) {
       // console.log(e.target);
       if (!e.target.getAttribute("data-name")) {
@@ -218,28 +224,73 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/css/utils/mixins";
 .MapContainer {
-  position: absolute;
+  // position: absolute;
   /* display: flex; */
-  top: 0;
-  right: 0;
-  /* flex: 1 0 500px; */
-  width: 70%;
+  // top: 0%;
+  // right: 0%;
+  width: 100%;
   height: 100%;
   /* flex-grow: 1; */
   background-color: rgb(227, 227, 227, 0.5);
   z-index: 3;
+
+  @include SmallViewPort {
+    display: none;
+  }
+
+  @include iPhoneXR {
+    display: none;
+  }
+  @include iPad {
+    display: none;
+  }
+  @include ViewPort-1024 {
+    display: none;
+  }
+  @include ViewPort-1280 {
+    display: none;
+  }
+  @include ViewPort-1440 {
+    display: flex;
+    width: 100%;
+  }
 }
 
 .map {
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .TaiwanSvg {
   // height: 100%;
   transform: scale(0.5) translateY(-5rem);
+
+  @include SmallViewPort {
+    display: none;
+  }
+
+  @include iPhoneXR {
+    display: none;
+  }
+
+  @include iPad {
+    display: none;
+  }
+  @include ViewPort-1024 {
+    display: none;
+  }
+  @include ViewPort-1280 {
+    display: none;
+  }
+  @include ViewPort-1440 {
+    display: block;
+    transform: scale(0.6);
+  }
 }
 
 path:hover {

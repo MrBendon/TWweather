@@ -50,7 +50,7 @@ a {
   height: 3rem;
   @include darkmode;
   margin-right: 4rem;
-  //   color: $darkmode-font-color;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .lightmode {
@@ -60,5 +60,6 @@ a {
   @include lightmode;
   margin-right: 4rem;
   background-image: none;
+  border: 1px solid gray;
 }
 </style>

@@ -1,18 +1,26 @@
 <template>
   <div class="background" :class="isDarkMode">
-    <div class="chooseLocationBox" @click="toggleMap">
+    <div class="chooseLocationBox">
       <img
         class="chooseLocation"
         :class="iconIsDarkMode"
         src="../../assets/icon/location.png"
         alt="location icon"
+        @click="toggleMap"
       />
-      <span class="chooseLocation__text">點擊查看其他行政區天氣</span>
-      <!-- <span>TaiChung, Taiwan</span> -->
+      <span v-if="!isShowMap" @click="toggleMap" class="chooseLocation__text">點擊查看其他行政區天氣</span>
+      <span v-else @click="toggleMap" class="chooseLocation__text">再次點擊可收回</span>
+      <app-nav class="toggleColorBtn"></app-nav>
     </div>
     <div class="detailsBox">
+      <transition name="select">
+        <small-choose-location v-if="isShowMap"></small-choose-location>
+      </transition>
       <div class="upperBox">
-        <div class="temperature">{{ getTemperature }}<span class="deg">&#176;C</span></div>
+        <span class="temperature">
+          {{ getTemperature }}
+          <span class="deg">&#176;C</span>
+        </span>
         <div class="locationAndDate">
           <div class="locationName">{{ getCityName }}</div>
           <div class="Date">{{ getDate }}&nbsp; {{ getDay }}</div>
@@ -35,9 +43,6 @@
       </div>
       <div class="line"></div>
       <ul class="bottom">
-        <!-- <li v-for="oneday in getFutureDaydata" :key="oneday.theDayFirstValue.startTime">
-          {{ oneday.theDayHighestNum }}
-        </li> -->
         <future-day-card
           v-for="oneday in getFutureDaydata"
           :key="oneday.theDayFirstValue.startTime"
@@ -47,14 +52,18 @@
     </div>
   </div>
 </template>
-<!-- 
-:Wx="oneday.theDayWx"
-:HT="oneday.theDayHighestNum"
-:LT="oneday.theDayLowestNum" -->
 
 <script>
+import AppNav from "./AppNav.vue";
 export default {
+  components: {
+    AppNav,
+  },
   computed: {
+    isShowMap() {
+      return this.$store.getters.getShowMap;
+    },
+
     iconIsDarkMode() {
       return this.$store.getters.getColorMode
         ? "chooseLocationIcon--darkmode"
@@ -94,24 +103,21 @@ export default {
   methods: {
     toggleMap() {
       const nowBoolean = this.$store.getters.getShowMap;
-      // console.log(nowBoolean);
       this.$store.dispatch("changeShowMap", !nowBoolean);
     },
   },
   async created() {
     await this.$store.dispatch("getUserLocation"); //有位子了
-    // await this.$store.dispatch("WeatherModule/fetchData"); // 有數據了
+    await this.$store.dispatch("WeatherModule/fetchData"); // 有數據了
     await this.$store.dispatch("getDate"); // 取得時間
     await this.$store.getters["WeatherModul/getUserLocationTodayData"];
-    // await this.$store.dispatch("WeatherModule/setUserLocationTodayData");
-    // console.log(this.$store.getters["WeatherModule/getObservationData"]);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "./src/assets/css/utils/_variables.scss";
-// @import "./src/assets/css/utils/_mixins.scss";
+@import "./src/assets/css/utils/_mixins.scss";
 .background {
   display: flex;
   width: 100%;
@@ -130,14 +136,14 @@ export default {
 .lightmode {
   color: $lightmode-font-color;
   background-image: none;
-  background-color: rgb(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255, 0.9);
 }
 
 .chooseLocationBox {
   display: flex;
-  flex: 0 0 10%;
-  width: 50%;
-  padding: 2rem 0 0 2rem;
+  // flex: 0 0 10%;
+  width: 100%;
+  padding: 0 2rem;
   align-items: center;
   font-size: 2.5rem;
   transition: all 0.3s;
@@ -162,6 +168,10 @@ export default {
   }
 }
 
+.toggleColorBtn {
+  margin-left: auto;
+}
+
 .chooseLocationIcon--darkmode {
   filter: invert(1);
 }
@@ -182,25 +192,33 @@ export default {
 }
 
 .temperature {
-  font-size: 10rem;
-  margin-right: 2rem;
-  //   vertical-align: bottom;
-  line-height: 8rem;
+  font-size: 8rem;
+  margin-right: 0.5rem;
+  line-height: 0.8;
+  word-spacing: -1.5rem;
 }
 
 .deg {
-  display: inline-block;
+  // display: inline-block;
   vertical-align: top;
   font-size: 2rem;
-  line-height: 2.5rem;
+  // line-height: 2.5rem;
 }
 .locationAndDate {
   font-size: 4.5rem;
   margin-right: 1rem;
+
+  @include iPhoneXR {
+    font-size: 4rem;
+  }
 }
 .Date {
   font-size: 1.5rem;
   font-weight: $font-weight-200;
+
+  @include iPhoneXR {
+    font-size: 1.25rem;
+  }
 }
 
 .middle {
@@ -227,5 +245,20 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.select-enter-from,
+.select-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.select-enter-to,
+.select-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.select-enter-active,
+.select-leave-active {
+  transition: all 0.35s ease-in-out;
 }
 </style>
