@@ -43,7 +43,7 @@ export default {
   computed: {
     IsWindowWidthBiggerThan1440px() {
       const windowWidth = window.innerWidth;
-      console.log(windowWidth);
+      // console.log(windowWidth);
       if (windowWidth < 1440) {
         console.log("smaller than 1440px");
         return false;

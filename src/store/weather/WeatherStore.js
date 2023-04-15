@@ -36,7 +36,7 @@ export default {
 
       // console.log(context.getters.getForecast72hrData);
       if (context.getters.getForecast72hrData.length === 0) {
-        console.log("fetch...");
+        console.log("fetch...again");
         // await context.dispatch("fetchData");
       }
 

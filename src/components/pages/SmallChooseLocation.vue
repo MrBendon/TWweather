@@ -67,7 +67,7 @@ export default {
     chooseLocation(e) {
       const cityName = e.target.getAttribute("data-name");
       if (!cityName) return;
-      console.log(cityName);
+      // console.log(cityName);
       this.$store.dispatch("ManualsetLocation", cityName);
       this.$store.dispatch("changeShowMap", false);
     },
@@ -98,6 +98,7 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
+    height: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     z-index: 15;
@@ -143,6 +144,7 @@ export default {
   margin: 0 auto;
   border: none;
   //   background-image: none;
+  margin: 1rem 0 0 0;
 }
 option {
   padding: 1rem 0;
