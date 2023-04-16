@@ -11,6 +11,8 @@ import TestPage from "./components/UI/TestPage.vue";
 import LoadingPage from "./components/UI/LoadingPage.vue";
 import ChooseLocation from "./components/pages/ChooseLocation.vue";
 import SmallChooseLocation from "./components/pages/SmallChooseLocation.vue";
+import SmallMap from "./components/pages/SmallMap.vue";
+
 const app = createApp(App);
 
 app.use(store);
@@ -24,5 +26,6 @@ app.component("test-page", TestPage);
 app.component("loading-page", LoadingPage);
 app.component("choose-location", ChooseLocation);
 app.component("small-choose-location", SmallChooseLocation);
+app.component("small-map", SmallMap);
 
 app.mount("#app");

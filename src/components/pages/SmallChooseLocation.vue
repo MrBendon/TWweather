@@ -12,19 +12,21 @@
           v-for="city in citylist"
           :key="city.cityName"
           :data-name="city.cityEngName"
-          @click="chooseLocation"
+          @touchend.prevent="chooseLocation"
         >
           {{ city.cityName }}
         </option>
       </select>
+      <div @touchend.prevent="ChangeCity" class="Submit" :class="isDarkMode">Submit</div>
     </div>
   </div>
 </template>
-
+<!-- -->
 <script>
 export default {
   data() {
     return {
+      UserChooseCity: "",
       citylist: [
         { cityName: "基隆市", cityEngName: "Keelung City" },
         { cityName: "臺北市", cityEngName: "Taipei City" },
@@ -64,18 +66,33 @@ export default {
     },
   },
   methods: {
+    ChangeCity(e) {
+      // this.UserChooseCity = cityName;
+      e.preventDefault();
+      console.log(this.UserChooseCity);
+      this.$store.dispatch("ManualsetLocation", this.UserChooseCity);
+      this.$store.dispatch("changeShowMap", false);
+      // console.log(1);
+    },
     chooseLocation(e) {
+      e.preventDefault();
+      // console.log(this.UserChooseCity);
       const cityName = e.target.getAttribute("data-name");
       if (!cityName) return;
+      this.UserChooseCity = cityName;
       // console.log(cityName);
-      this.$store.dispatch("ManualsetLocation", cityName);
-      this.$store.dispatch("changeShowMap", false);
+      // console.log(this.UserChooseCity);
+      // this.$store.dispatch("ManualsetLocation", cityName);
+      // this.$store.dispatch("changeShowMap", false);
     },
     close() {
       //   const nowBoolean = this.$store.getters.getShowMap;
       // console.log(nowBoolean);
       this.$store.dispatch("changeShowMap", false);
     },
+  },
+  mounted() {
+    this.UserChooseCity = "";
   },
 };
 </script>
@@ -146,6 +163,11 @@ export default {
   //   background-image: none;
   margin: 1rem 0 0 0;
 }
+
+select {
+  border: none;
+}
+
 option {
   padding: 1rem 0;
 }
@@ -164,6 +186,24 @@ option:hover {
   text-align: center;
   &:hover {
     background-color: rgb(148, 148, 148);
+  }
+}
+
+.Submit {
+  display: block;
+  margin: 1rem auto;
+  border: 1px solid grey;
+  border-radius: 20px;
+  width: 8rem;
+  height: 3rem;
+  font-size: 2rem;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-3px);
+  }
+  &:active {
+    transform: translateY(2px);
   }
 }
 </style>

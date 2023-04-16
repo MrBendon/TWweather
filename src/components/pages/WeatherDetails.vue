@@ -14,7 +14,8 @@
     </div>
     <div class="detailsBox">
       <transition name="select">
-        <small-choose-location v-if="isShowMap"></small-choose-location>
+        <small-map v-if="isShowMap"></small-map>
+        <!-- <small-choose-location v-if="isShowMap"></small-choose-location> -->
       </transition>
       <div class="upperBox">
         <span class="temperature">
@@ -209,7 +210,8 @@ export default {
   margin-right: 1rem;
 
   @include iPhoneXR {
-    font-size: 4rem;
+    margin-right: 0.5rem;
+    font-size: 3.5rem;
   }
 }
 .Date {
