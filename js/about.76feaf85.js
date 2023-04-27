@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunktaiwanweather"]=self["webpackChunktaiwanweather"]||[]).push([[443],{7381:function(a,n,t){t.r(n),t.d(n,{default:function(){return w}});var e=t(3396);const r={class:"about"},u=(0,e._)("h1",null,"This is an about page",-1),s=[u];function i(a,n){return(0,e.wg)(),(0,e.iD)("div",r,s)}var c=t(89);const h={},o=(0,c.Z)(h,[["render",i]]);var w=o}}]);
+//# sourceMappingURL=about.76feaf85.js.map
