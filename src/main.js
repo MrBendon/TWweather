@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import store from "./store/index.js";
-import router from "./router";
+// import router from "./router";
 
 import BaseButton from "./components/UI/BaseButton.vue";
 import BaseSmallIconCard from "./components/UI/BaseSmallIconCard.vue";
@@ -16,7 +16,7 @@ import SmallMap from "./components/pages/SmallMap.vue";
 const app = createApp(App);
 
 app.use(store);
-app.use(router);
+// app.use(router);
 
 app.component("base-button", BaseButton);
 app.component("base-small-icon-card", BaseSmallIconCard);

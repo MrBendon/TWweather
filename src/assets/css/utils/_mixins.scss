@@ -42,3 +42,8 @@
     @content;
   }
 }
+@mixin ViewPort-1920 {
+  @media only screen and (min-width: 1920px) {
+    @content;
+  }
+}
