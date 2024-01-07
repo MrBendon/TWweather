@@ -17,7 +17,7 @@ export default {
   actions: {
     async fetchData(context) {
       const fetchfromCWB = await fetch(
-        `https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=rdec-key-123-45678-011121314`
+        `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=rdec-key-123-45678-011121314`
       );
       const FullResponse = await fetchfromCWB.json();
       const AllLocationsData = await FullResponse.records.locations[0].location;
